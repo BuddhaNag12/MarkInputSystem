@@ -89,6 +89,9 @@ export default new Vuex.Store({
     user (state) {
       return state.user
     },
+    loading (state) {
+      return state.user.loader
+    },
     
   }
 })

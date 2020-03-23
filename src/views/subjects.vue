@@ -21,8 +21,11 @@
       :headers="headers"
       :items="adddata"
       :search="search"
-      
-    ></v-data-table>
+     
+    >
+     <template v-slot:item.type="{ item }">
+      <v-chip :color="getColor(item.type)" class="white--text" label>{{ item.type }}</v-chip>
+    </template></v-data-table>
   </v-card>
             </v-col>
         </v-row>
@@ -60,7 +63,8 @@ export default {
         ],
          adddata:[],
 
-
+        honors:false,
+        pass:false,
         
     }),
     props:['dep'],
@@ -68,13 +72,22 @@ export default {
 
           db.collection("subjects").where("department","==",this.dep).get().then((querySnapshot) =>{
           querySnapshot.forEach((doc)=> {
+            if(doc.data().type=="honors"){
+              this.honors=true
+            }else{
+              this.pass=true
+            }
               this.adddata.push(
               doc.data()
               )  
           });   
         });
   },
-     
-
+ methods: {
+      getColor (type) {
+        if (type== "honors") return 'red'
+        else return 'green'
+      },
+    },
 }
 </script>

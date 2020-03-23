@@ -2,7 +2,42 @@
   <v-img src="../assets/cc2.jpg" height="800px" >
 
 <v-container>
+ <div class="text-center">
+    <v-dialog
+      v-model="subAdded"
+      width="500"
+    >
+      <v-card>
+      <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+        >
+          Info
+        </v-card-title>
+        <v-card-text class="pa-3"> 
+          <v-alert type="success">
+         subject added
+         </v-alert>
 
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+           
+            @click="subAdded = false"
+          >
+          <v-icon>mdi-arrow-left</v-icon>
+
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
   <v-row no-gutters>
     <v-col lg="4" sm="12" md="6">
   <v-card
@@ -24,6 +59,7 @@
             <v-list-item-content>
               <v-list-item-title class="text-uppercase">Name:{{user.data.name}}</v-list-item-title>
               <v-list-item-subtitle class="text-uppercase">Dpt.{{user.data.department}}</v-list-item-subtitle>
+              
             </v-list-item-content>
           </v-list-item>
 
@@ -137,6 +173,7 @@ const db = firebase.firestore(app);
           disabled:true,
           dep:'',
           overlay: false,
+          subAdded:false,
           
     }),
 
@@ -172,7 +209,7 @@ const db = firebase.firestore(app);
              subject_name:this.subject_name,
              department:this.dep,
         }).then(()=>{
-    
+          this.subAdded=true
           this.type=''
           this.dialog=false
           this.sem=''

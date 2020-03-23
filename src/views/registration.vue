@@ -307,7 +307,6 @@ const db = firebase.firestore();
            this.hidden=false
            this.disabled=false
           this.show=downloadURL
-          console.log('File available at', downloadURL)
         })
       })    
       

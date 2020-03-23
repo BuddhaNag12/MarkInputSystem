@@ -19,7 +19,7 @@
           Info
         </v-card-title>
         <v-card-text>
-          <v-alert type="success">
+          <v-alert type="success" class="pa-3">
          Marks Added
          </v-alert>
 
@@ -92,11 +92,13 @@
     <v-card >
        <v-simple-table>
     <template v-slot:default>
+
       <tbody>
+
         <tr  v-for="(row, index) in rows" :key="index">
-          <td><v-text-field v-model="row.regNo" label="Enter Registration No./Roll no."></v-text-field></td>
-          <td><v-text-field v-model="row.mark" label="Enter Unit Test  Mark 20/14"></v-text-field></td>
-           <td><v-text-field v-model="row.AtMark" label="Enter Attendence mark 10/6"></v-text-field></td>
+          <td><v-text-field v-model="row.regNo" label=" Registration No./Roll no."></v-text-field></td>
+          <td> <v-text-field v-model="row.mark" label="Unit Test  Mark 20/14"></v-text-field></td>
+           <td><v-text-field v-model="row.AtMark" label=" Attendence mark 10/6"></v-text-field></td>
            <td><v-btn @click="removeElement(index)" text><v-icon>mdi-delete</v-icon> </v-btn></td>
         </tr>
       

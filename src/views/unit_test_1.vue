@@ -106,7 +106,6 @@
     </template>
   </v-simple-table>
     <v-btn color="success" text :hidden="hidden" @click="SaveInput">save</v-btn>
-     <v-btn color="secondary" text :hidden="hidden">print</v-btn>
     </v-card>
     
   </v-col>
@@ -159,7 +158,7 @@ export default {
                 attendanceMar:data.AtMark,
                 semester:this.sem,
                 Hons_pass:this.hop,
-                subject_name:this.sub
+                subject_name:this.sub,
               }
             
              db.collection('unit_test_1').add(data_1).then(()=>{

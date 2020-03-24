@@ -17,6 +17,7 @@
       <v-card-actions >
       <v-btn  block :to="'/adminlogin'" color="success">Login</v-btn>
     </v-card-actions>
+ 
     </v-card>
        </v-col>
        <v-col class="col-sm-12 col-md-6 col-12">
@@ -90,6 +91,7 @@ export default {
             this.user_id=""
             this.feed=""
          },
+        
          checkTeacher(){
               db.collection("teacher_id").where("id","==",this.user_id).get().then((querySnapshot) =>{
             querySnapshot.forEach((doc)=> {

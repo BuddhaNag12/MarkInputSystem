@@ -5,7 +5,7 @@
             <v-col sm="12" lg="8" class="mx-auto" md="12">
                <v-btn text to="/dashboard" ><v-icon  >mdi-arrow-left</v-icon></v-btn>
                    <v-card >
-
+                     
     <v-card-title>
       SUBJECTS
       <v-spacer></v-spacer>
@@ -85,9 +85,10 @@ export default {
   },
  methods: {
       getColor (type) {
-        if (type== "honors") return 'red'
-        else return 'green'
+        if (type== "honors") return '#FF8066'
+        else return '#00C9A7'
       },
     },
+   
 }
 </script>

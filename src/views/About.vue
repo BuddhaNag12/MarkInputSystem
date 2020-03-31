@@ -5,15 +5,13 @@
         </v-container>
         
       <v-container fluid>
-          <v-row>
-              <v-col>
-             <v-layout>
-              <div class=" font-weight-bold black--text ">Contact Info</div>  
-          </v-layout> 
+          <v-row no-gutters>
+              <v-col class="sm-12 md-6 lg-6 text-sm-left">
+            <div class="font-weight-bold black--text  caption">Contact Info</div>  
           <div class=" font-italic body-1 grey--text  text-left">Please feel free to reach out to us with your questions and comments.</div>
           <div class="font-weight-bold black--text text-left pt-2">Email</div>
           <div class="text-left">
-        <a href="mailto:rahulnag514@gmail.com" class="grey--text  text--darken-3 body-1">Owner Email</a>
+        <a href="" class="grey--text  text--darken-3 body-1">Owner Email</a>
           </div>
   
               </v-col>
@@ -50,6 +48,16 @@
     </div>
 </template>
 
+<script>
+export default {
+    data(){
+        return{
+            email:'',
+            msg:'',
+        }
+    }
+}
+</script>
 
 <style scoped>
 .about{

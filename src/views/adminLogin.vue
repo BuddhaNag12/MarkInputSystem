@@ -3,28 +3,12 @@
       <v-container
         fluid
       >
-         <div class="text-center">
-  
-    <v-dialog
-      v-model="this.loading"
-      hide-overlay
-      persistent
-      width="300"
-    >
-      <v-card
-        color="primary"
-        dark
-      >
-        <v-card-text>
-          Please stand by
-          <v-progress-linear
-            indeterminate
-            color="white"
-            class="mb-0"
-          ></v-progress-linear>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
+ <div class="text-center">
+
+
+    <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </div>
       <p class="caption blue--text">{{this.error}}</p>
         <v-row
@@ -53,7 +37,7 @@
                   />
 
                   <v-text-field
-                    id="password"
+                  
                     label="Password"
                     name="password"
                     prepend-icon="lock"
@@ -95,6 +79,7 @@ import firebase from "firebase"
         }).catch((err) => {
         //  console.log(err)
           this.error=err
+            this.loading=false
         })
          } 
       },

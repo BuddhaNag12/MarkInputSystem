@@ -8,6 +8,7 @@ import update from '../views/update_profile.vue'
 import dashboard from '../views/dashboard.vue'
 import unit_test_1 from '../views/show_mark_u1.vue'
 import unit_test_2 from '../views/show_mark_u2.vue'
+import profile from '../views/profile.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -72,6 +73,12 @@ const routes = [
     path : '/ut2_marks',
     name: 'unit_test_2_marks',
     component: unit_test_2
+  },
+  {
+    path : '/profile/:id',
+    name: 'profile',
+    props:true,
+    component: profile
   },
   
 ]

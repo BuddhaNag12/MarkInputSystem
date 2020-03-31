@@ -1,11 +1,14 @@
 <template>
 
   <v-app >
- <div id="nav" class="blue lighten-2">
-      <v-btn to="/" class="white--text" text ><v-icon>mdi-home</v-icon> Home</v-btn> 
-   <v-btn text to="/about" class="white--text">
+ <div id="nav" class="blue lighten-2" >
+ <v-btn text to="/about" class="white--text">
     <v-icon  >mdi-bulletin-board </v-icon> about
    </v-btn>
+     <v-btn @click="logout" class="white--text" text v-if="userIsAuthenticated"><v-icon>mdi-logout</v-icon> logout</v-btn>
+      <v-btn to="/" class="white--text" text v-else ><v-icon>mdi-home</v-icon> Home</v-btn>
+    
+  
 
     </div>
 
@@ -44,8 +47,32 @@
   </v-app>
 </template>
 <script>
+import firebase from "firebase"
+export default {
+    data:()=>({
+      logged:false
+    }),
+      methods:{
 
+      logout(){
+           firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.push('/adminLogin')
+        });   
+         },
+      },  
+  computed:{
+    userIsAuthenticated () {
+      return this.$store.getters.user.loggedIn  
+     
+      }, 
+  }
+
+}
 </script>
+
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import firebase from "firebase"
+// import firebase from "firebase"
 import vuetify from './plugins/vuetify';
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
@@ -15,13 +15,13 @@ new Vue({
   vuetify,
   render: h => h(App),
   
-  created () {
+  // created () {
    
-    firebase.auth().onAuthStateChanged(user => {
-      this.$store.dispatch("fetchUser", user);
+  //   // firebase.auth().onAuthStateChanged(user => {
+  //   //   this.$store.dispatch("fetchUser", user);
       
-    });
+  //   // });
     
-  },
+  // },
  
 }).$mount('#app')

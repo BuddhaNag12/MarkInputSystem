@@ -69,7 +69,7 @@ export default {
       },
       getColorMarks(marks){
             if (marks >=10) return 'green'
-        else return 'green'
+        else return 'red'
       },
       print(){
           window.print()

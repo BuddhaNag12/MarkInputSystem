@@ -2,7 +2,7 @@
 <div>
     <div>
        <v-btn text to="/dashboard" ><v-icon  >mdi-arrow-left</v-icon></v-btn>
-            <h1 class=" display-3 text-uppercase font-italic" >{{user.data.department}}</h1>
+            <h1 class=" display-3 text-uppercase font-italic font-weight-bold blue--text text--lighten-2"  >{{user.data.department}}</h1>
          <h1 class=" display-1">UNIT TEST II</h1>
           
           

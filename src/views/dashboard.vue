@@ -41,28 +41,22 @@
   <v-row no-gutters>
     <v-col lg="4" sm="12" md="6">
   <v-card
-       height="500"
-    width="280"
-    class="mx-auto"
+       width="280"
+       class="mx-auto deep-purple accent-2"
+       tile
     >
-
        <v-list
           dense
-          nav
-                  
         >
-          <v-list-item two-line    >
-            <v-list-item-avatar>
-              <img :src=user.data.imgurl>
-            </v-list-item-avatar>
-
+          <v-list-item two-line class="mx-2" link :to="'/profile/'+user.data.id">
             <v-list-item-content>
-              <v-list-item-title class="text-uppercase">Name:{{user.data.name}}</v-list-item-title>
+              <v-list-item-title class="text-uppercase" >Name:{{user.data.name}}</v-list-item-title>
               <v-list-item-subtitle class="text-uppercase">Dpt.{{user.data.department}}</v-list-item-subtitle>
-              
             </v-list-item-content>
+               <v-list-item-avatar tile>
+                           <img :src=user.data.imgurl alt="profile" >
+            </v-list-item-avatar>
           </v-list-item>
-
           <v-divider></v-divider>
           <v-list-item >
               
@@ -70,10 +64,7 @@
                  <v-icon class="pr-2">
                   fas fa-edit</v-icon>
                  UNIT TEST I
-                  
                  </v-btn>
-                
-            
           </v-list-item>
           <v-list-item>
             <v-btn  text  to="/ut2">
@@ -120,7 +111,6 @@
     </v-dialog>
  </v-list-item>
 
-
   <v-list-item>
             <v-btn :to="'/subject-data/'+user.data.department" text><v-icon class="pr-2">mdi-book</v-icon> Show Subjects</v-btn>
           </v-list-item>
@@ -131,9 +121,6 @@
             <v-btn to="/ut2_marks" text><v-icon class="pr-2">mdi-counter</v-icon>Unit Test II Marks</v-btn>
           </v-list-item>
     <v-list-item>
-           <div class="logout" >
-        <v-btn  text  @click="logout" ><v-icon>mdi-logout</v-icon>Logout</v-btn>
-             </div>
           </v-list-item>
          
         </v-list>
@@ -174,7 +161,6 @@ const db = firebase.firestore(app);
           dep:'',
           overlay: false,
           subAdded:false,
-          
     }),
 
     computed: {
@@ -188,8 +174,16 @@ const db = firebase.firestore(app);
          
       },
     },   
+    created(){
+
+    firebase.auth().onAuthStateChanged(user => {
+      this.$store.dispatch("fetchUser", user);
+      
+    });
+    
+    },
        methods:{
-          
+    
          changeInput(){
            this.disabled=false;
          },

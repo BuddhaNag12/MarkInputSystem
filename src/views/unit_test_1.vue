@@ -1,8 +1,8 @@
 <template>
 <div>
-    <div>
+    <div> 
        <v-btn text to="/dashboard" ><v-icon  >mdi-arrow-left</v-icon></v-btn>
-         <h1 class=" display-3 text-uppercase font-italic" >{{user.data.department}}</h1>
+         <h1 class=" display-3 text-uppercase font-italic font-weight-bold blue--text text--lighten-2" >{{user.data.department}}</h1>
          <h1 class=" display-1">UNIT TEST I</h1>
           
             <div class="text-center">
@@ -91,11 +91,12 @@
   <v-col lg="8" sm="12" md="6" class="mx-auto">
     <v-card >
        <v-simple-table>
+   
     <template v-slot:default>
 
       <tbody>
-
-        <tr  v-for="(row, index) in rows" :key="index">
+        
+        <tr  v-for="(row, index) in rows" :key="index" >
           <td><v-text-field v-model="row.regNo" label=" Registration No./Roll no."></v-text-field></td>
           <td> <v-text-field v-model="row.mark" label="Unit Test  Mark 20/14"></v-text-field></td>
            <td><v-text-field v-model="row.AtMark" label=" Attendence mark 10/6"></v-text-field></td>

@@ -1,5 +1,12 @@
 <template>
   <v-container>
+     <div class="text-center">
+
+
+    <v-overlay :value="loading">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
+  </div>
       <v-layout row wrap class="justify-center">
       <v-flex xs10 sm10 lg8>
         <h4>Register new account</h4>
@@ -16,11 +23,14 @@
         >
           Info
         </v-card-title>
-        <v-card-text>
-          <v-alert type="success">
+        <v-card-text class="pt-4">
+          <v-alert type="warning" v-if="this.err">
+            {{this.err}}
+          </v-alert>
+          <v-alert type="success" v-else>
          Registered
          </v-alert>
-
+      
         </v-card-text>
 
         <v-divider></v-divider>
@@ -32,7 +42,7 @@
             text
             @click="dialog = false"
           >
-            Registered
+            close
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -54,7 +64,7 @@
                     <v-text-field
                       name="name"
                       label="Name"
-                      id="name"
+                    
                       v-model="name"
                       type="text"
                       required></v-text-field>
@@ -76,7 +86,7 @@
                     <v-text-field
                       name="phone"
                       label="Phone"
-                      id="phone"
+                   
                       v-model="phone"
                       type="number"
                       required></v-text-field>
@@ -98,7 +108,7 @@
                     <v-text-field
                       name="email"
                       label="Mail"
-                      id="email"
+                   
                       v-model="email"
                       type="email"
                       required></v-text-field>
@@ -109,7 +119,7 @@
                     <v-text-field
                       name="password"
                       label="Password"
-                      id="password"
+                   
                       v-model="password"
                       type="password"
                       
@@ -195,6 +205,7 @@ const db = firebase.firestore();
           show:'',
           hidden:true,
           disabled:true,
+          err:'',
       }
     },
     computed: {
@@ -216,7 +227,7 @@ const db = firebase.firestore();
   methods:{
       
       AdminSignUp(){
-    
+        this.loading=true
         firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password).then(cred=>{
@@ -232,7 +243,7 @@ const db = firebase.firestore();
         
       })
      }).then(()=>{
-       this.loading=true
+       this.loading=false
        this.dialog=true
        this.email=""
        this.password=""
@@ -243,8 +254,13 @@ const db = firebase.firestore();
         this.dep=""
         this.show=true
         this.disabled=true
+        
+      }).catch((error)=>{
+          this.loading=false
+          this.err=error
+             this.dialog=true
       })
-      },
+  },
     
 
 
@@ -253,6 +269,7 @@ const db = firebase.firestore();
         
       },
       onFilePicked (event) {
+        this.loading=true
         const files = event.target.files
         let filename = files[0].name
         let actualFile = files[0]
@@ -268,13 +285,16 @@ const db = firebase.firestore();
          fileReader.readAsDataURL(files[0])
         this.image = files[0]
         this.imgurl="https://firebasestorage.googleapis.com/v0/b/cachar-college.appspot.com/o/"+"undefined"+'%2F'+this.randomKey+"?alt=media"
+
         this.actualFile=actualFile
+
+
          var storage = firebase.storage();
           var storageRef=storage.ref()
-         var metadata = {
+          var metadata = {
         contentType: 'image/jpeg',
       }   
-      var uploadTask = storageRef.child(this.category+'/'+this.randomKey).put(actualFile, metadata)
+          var uploadTask = storageRef.child(this.category+'/'+this.randomKey).put(actualFile, metadata)
 
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
      (snapshot) =>{
@@ -306,12 +326,12 @@ const db = firebase.firestore();
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) =>{
            this.hidden=false
            this.disabled=false
+           this.loading=false
           this.show=downloadURL
         })
       })    
-      
-      
       },
+
      
   }
    

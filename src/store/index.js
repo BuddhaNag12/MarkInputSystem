@@ -8,7 +8,6 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-  
     user: {
       loggedIn: false,
       data: null,
@@ -17,9 +16,6 @@ export default new Vuex.Store({
     error:'',
   },
   mutations: {
-    setUser (state, payload) {
-      state.user = payload
-    },
     SET_LOGGED_IN(state, value) {
       state.user.loggedIn = value;
     },
@@ -52,9 +48,12 @@ export default new Vuex.Store({
             imgurl:doc.data().imgurl
           });
           commit('SET_LOADING', false)
+          commit('SET_LOGGED_IN',true)
+
         });
      
       } else {
+        commit('SET_LOGGED_IN',false)
         commit("SET_USER", null);
        
       }
@@ -64,15 +63,15 @@ export default new Vuex.Store({
 
     // signUserIn ({commit}, payload) {
 
-    //   // firebase.auth().signInWithEmailAndPassword(payload.email, payload.password).then(() => {
-    //   //     this.$router.push('/dashboard')
+    //   firebase.auth().signInWithEmailAndPassword(payload.email, payload.password).then(() => {
+    //       this.$router.push('/dashboard')
        
-    //   //       this.$router.replace('/dashboard')
-    //   //   }).catch((err) => {
-    //   //   //  console.log(err)
-    //   //   commit('SET_ERROR',err)
+    //         this.$router.replace('/dashboard')
+    //     }).catch((err) => {
+    //     //  console.log(err)
+    //     commit('SET_ERROR',err)
          
-    //   //   })
+    //     })
 
     // },
     autoSignIn ({commit}, payload) {
@@ -89,6 +88,7 @@ export default new Vuex.Store({
     user (state) {
       return state.user
     },
+
     loading (state) {
       return state.user.loader
     },

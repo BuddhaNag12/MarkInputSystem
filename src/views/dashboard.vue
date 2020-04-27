@@ -70,15 +70,17 @@
                                 <v-select
                                   :items="['1st semester','2nd semester','3rd semester','4th semester','5th semester','6th semester']"
                                   v-model="sem"
+                                  prepend-icon="mdi-asterisk"
                                   label="Semester"
                                 ></v-select>
                                 <v-select
                                   :items="['pass','honors']"
+                                   prepend-icon="mdi-asterisk"
                                   v-model="type"
                                   label="type"
                                   @change="changeInput"
                                 ></v-select>
-                                <v-text-field :disabled="disabled" v-model="subject_name"></v-text-field>
+                                <v-text-field  prepend-icon="mdi-asterisk" :disabled="disabled" v-model="subject_name" label="Subject name"></v-text-field>
                                 <v-spacer></v-spacer>
                                 <v-btn color="blue darken-1" text @click="reset">Close</v-btn>
                                 <v-btn color="primary" text type="submit">Save</v-btn>
@@ -86,7 +88,7 @@
                             </v-flex>
                           </v-layout>
                         </v-container>
-                        <small>*indicates required field</small>
+                        <h2 >*indicates required field</h2>
                       </v-card-text>
                     </v-card>
                   </v-dialog>
@@ -181,19 +183,24 @@ export default {
     },
     addSubject() {
       this.dep = this.$store.getters.user.data.department;
+      if(this.type==""){
+        return
+      }else{
       db.collection("subjects")
-        .add({
-          type: this.type,
-          semester: this.sem,
-          subject_name: this.subject_name,
-          department: this.dep
-        })
-        .then(() => {
-          this.subAdded = true;
-          this.type = "";
-          this.dialog = false;
-          this.sem = "";
-        });
+              .add({
+                type: this.type,
+                semester: this.sem,
+                subject_name: this.subject_name,
+                department: this.dep
+              })
+              .then(() => {
+                this.subAdded = true;
+                this.type = "";
+                this.dialog = false;
+                this.sem = "";
+              });
+      }
+     
     },
 
     logout() {

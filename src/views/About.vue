@@ -1,6 +1,7 @@
 <template>
   <div class="about">
     <v-container fluid>
+      <v-btn v-if="userIsAuthenticated" text to="/dashboard">back</v-btn>
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57936.66815884068!2d92.7486197782311!3d24.828245470714357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x374e4a625ae8cddd%3A0x1783d41a15380398!2sSilchar%2C%20Assam!5e0!3m2!1sen!2sin!4v1576426840177!5m2!1sen!2sin"
         width="100%"
@@ -47,6 +48,11 @@ export default {
       email: "",
       msg: ""
     };
+  },
+  computed: {
+    userIsAuthenticated() {
+      return this.$store.getters.user.loggedIn;
+    }
   }
 };
 </script>

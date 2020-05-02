@@ -1,7 +1,10 @@
 <template>
   <v-app>
     <loading :isLoading="loading" />
-    <div id="nav" class="blue lighten-2">
+    <v-app-bar color="blue lighten-2" tile dark>
+      <v-toolbar-title>Mark input-sytem</v-toolbar-title>
+
+      <v-spacer></v-spacer>
       <v-btn text to="/about" class="white--text">
         <v-icon>mdi-bulletin-board</v-icon>about
       </v-btn>
@@ -11,14 +14,9 @@
       <v-btn to="/" class="white--text" text v-else>
         <v-icon>mdi-home</v-icon>Home
       </v-btn>
-    </div>
+    </v-app-bar>
     <v-content>
-      <transition
-        enter-active-class="animated fadeInRight"
-        leave-active-class="animated fadeOutLeft"
-      >
-        <router-view class="text-center display-1 grey--text pa-4"></router-view>
-      </transition>
+      <router-view class="text-center display-1 grey--text pa-4"></router-view>
     </v-content>
 
     <div>
@@ -34,7 +32,7 @@ import loading from "./components/loading";
 export default {
   data: () => ({
     logged: false,
-    loading:false
+    loading: false
   }),
   components: {
     Footer,
@@ -42,12 +40,12 @@ export default {
   },
   methods: {
     logout() {
-      this.loading=true
+      this.loading = true;
       firebase
         .auth()
         .signOut()
         .then(() => {
-          this.loading=false
+          this.loading = false;
           this.$router.push("/adminLogin");
         });
     }
@@ -78,5 +76,12 @@ export default {
 #nav a {
   font-weight: bold;
   color: #2c3e50;
+}
+
+@media print {
+  #nav,
+  #footer {
+    display: none;
+  }
 }
 </style>

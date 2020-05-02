@@ -15,10 +15,12 @@
                 append-icon="mdi-magnify"
                 label="Search"
                 single-line
-                hide-details
               ></v-text-field>
-            </v-card-title>
-            <v-data-table :headers="headers" :items="adddata" :search="search">
+            </v-card-title >
+            <v-data-table :headers="headers" :items="adddata" :search="search" :loading="loading">
+              <template v-slot:item.delete="{ item }">
+                <v-icon @click="deleteSubject(item.subject_name,item.semester)">mdi-delete</v-icon>
+              </template>
               <template v-slot:item.type="{ item }">
                 <v-chip :color="getColor(item.type)" class="white--text" label>{{ item.type }}</v-chip>
               </template>
@@ -47,20 +49,47 @@ export default {
       },
       { text: "SUBJECT", value: "subject_name" },
       { text: "SEMESTER", value: "semester" },
-      { text: "HONS/PASS", value: "type" }
+      { text: "HONS/PASS", value: "type" },
+      { text: "Delete", value: "delete" }
     ],
     adddata: [],
-
     honors: false,
-    pass: false
+    pass: false,
+    deleteClick:false,
+    loading:false,
   }),
   props: ["dep"],
-  created() {
-    db.collection("subjects")
+
+  mounted() {
+    this.getData()
+  },
+  methods: {
+    deleteSubject(subject_name,semester){
+   db.collection("subjects")
+      .where("subject_name", "==", subject_name).where("semester","==", semester)
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          doc.ref.delete().then(()=>{
+              this.adddata=[]
+              this.getData()
+          })
+          
+        });
+      });
+    },
+    getColor(type) {
+      if (type == "honors") return "#FF8066";
+      else return "#00C9A7";
+    },
+    getData(){
+      this.loading=true
+      db.collection("subjects")
       .where("department", "==", this.dep)
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
+          this.loading=false
           if (doc.data().type == "honors") {
             this.honors = true;
           } else {
@@ -69,11 +98,6 @@ export default {
           this.adddata.push(doc.data());
         });
       });
-  },
-  methods: {
-    getColor(type) {
-      if (type == "honors") return "#FF8066";
-      else return "#00C9A7";
     }
   }
 };

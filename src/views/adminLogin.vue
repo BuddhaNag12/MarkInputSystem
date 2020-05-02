@@ -17,6 +17,7 @@
                   prepend-icon="person"
                   type="text"
                   v-model="email"
+                  
                 />
 
                 <v-text-field
@@ -25,6 +26,7 @@
                   prepend-icon="lock"
                   type="password"
                   v-model="password"
+                  
                 />
                 <v-btn color="primary" type="submit">Login</v-btn>
               </v-form>

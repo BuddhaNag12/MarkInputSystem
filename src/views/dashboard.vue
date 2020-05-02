@@ -47,11 +47,6 @@
                   </v-btn>
                 </v-list-item>
                 <v-list-item>
-                  <v-btn text :to="'/update_profile/'+user.data.id">
-                    <v-icon dark class="pr-2">mdi-wrench</v-icon>UPDATE PROFILE
-                  </v-btn>
-                </v-list-item>
-                <v-list-item>
                   <v-dialog v-model="dialog" persistent max-width="600px">
                     <template v-slot:activator="{ on }">
                       <v-btn text v-on="on">
@@ -75,12 +70,17 @@
                                 ></v-select>
                                 <v-select
                                   :items="['pass','honors']"
-                                   prepend-icon="mdi-asterisk"
+                                  prepend-icon="mdi-asterisk"
                                   v-model="type"
                                   label="type"
                                   @change="changeInput"
                                 ></v-select>
-                                <v-text-field  prepend-icon="mdi-asterisk" :disabled="disabled" v-model="subject_name" label="Subject name"></v-text-field>
+                                <v-text-field
+                                  prepend-icon="mdi-asterisk"
+                                  :disabled="disabled"
+                                  v-model="subject_name"
+                                  label="Subject name"
+                                ></v-text-field>
                                 <v-spacer></v-spacer>
                                 <v-btn color="blue darken-1" text @click="reset">Close</v-btn>
                                 <v-btn color="primary" text type="submit">Save</v-btn>
@@ -88,7 +88,7 @@
                             </v-flex>
                           </v-layout>
                         </v-container>
-                        <h2 >*indicates required field</h2>
+                        <h2>*indicates required field</h2>
                       </v-card-text>
                     </v-card>
                   </v-dialog>
@@ -170,6 +170,7 @@ export default {
     firebase.auth().onAuthStateChanged(user => {
       this.$store.dispatch("fetchUser", user);
     });
+   
   },
   methods: {
     changeInput() {
@@ -183,24 +184,23 @@ export default {
     },
     addSubject() {
       this.dep = this.$store.getters.user.data.department;
-      if(this.type==""){
-        return
-      }else{
-      db.collection("subjects")
-              .add({
-                type: this.type,
-                semester: this.sem,
-                subject_name: this.subject_name,
-                department: this.dep
-              })
-              .then(() => {
-                this.subAdded = true;
-                this.type = "";
-                this.dialog = false;
-                this.sem = "";
-              });
+      if (this.type == "") {
+        return;
+      } else {
+        db.collection("subjects")
+          .add({
+            type: this.type,
+            semester: this.sem,
+            subject_name: this.subject_name,
+            department: this.dep
+          })
+          .then(() => {
+            this.subAdded = true;
+            this.type = "";
+            this.dialog = false;
+            this.sem = "";
+          });
       }
-     
     },
 
     logout() {

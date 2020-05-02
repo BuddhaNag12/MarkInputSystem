@@ -115,7 +115,7 @@ export default {
     numofstu: "",
     disabled: true,
     dialog: false,
-    err: ""
+    err: "",
   }),
 
   methods: {

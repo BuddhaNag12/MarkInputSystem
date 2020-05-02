@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <v-container>
+    <v-container class="page"> 
       <span
         class="blue--text font-italic font-weight-bold text-uppercase"
       >Welcome to MARK INPUT SYSTEM</span>

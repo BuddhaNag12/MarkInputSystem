@@ -9,14 +9,6 @@
                 <v-img src="../assets/logo.png"></v-img>
               </v-avatar>
             </strong>
-
-            <v-divider></v-divider>
-
-            <div class="pt-2">
-              <v-icon color="blue">mdi-instagram</v-icon>
-              <v-icon color="blue">mdi-facebook</v-icon>
-              <v-icon color="blue">mdi-whatsapp</v-icon>
-            </div>
           </v-card-text>
         </v-footer>
       </v-card>

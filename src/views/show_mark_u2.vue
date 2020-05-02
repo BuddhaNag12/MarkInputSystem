@@ -18,7 +18,7 @@
                 hide-details
               ></v-text-field>
             </v-card-title>
-            <v-data-table :headers="headers" :items="marks" :search="search">
+            <v-data-table :headers="headers" :items="marks" :search="search" :loading="loading">
               <template v-slot:item.Hons_pass="{ item }">
                 <v-chip
                   :color="getColor(item.Hons_pass)"
@@ -60,7 +60,8 @@ export default {
       { text: "Registration No", value: "registrationNo" },
       { text: "Semester", value: "semester" },
       { text: "Subject", value: "subject_name" }
-    ]
+    ],
+     loading:false,
   }),
   methods: {
     getColor(Hons_pass) {
@@ -77,10 +78,12 @@ export default {
   },
 
   created() {
+    this.loading=true
     db.collection("unit_test_2")
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
+          this.loading=false
           this.marks.push(doc.data())
         });
       });
